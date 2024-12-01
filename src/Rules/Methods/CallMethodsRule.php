@@ -37,6 +37,7 @@ final class CallMethodsRule implements Rule
 
 		$methodName = $node->name->name;
 
+
 		[$errors, $methodReflection] = $this->methodCallCheck->check($scope, $methodName, $node->var);
 		if ($methodReflection === null) {
 			return $errors;
@@ -45,7 +46,7 @@ final class CallMethodsRule implements Rule
 		$declaringClass = $methodReflection->getDeclaringClass();
 		$messagesMethodName = SprintfHelper::escapeFormatString($declaringClass->getDisplayName() . '::' . $methodReflection->getName() . '()');
 
-		return array_merge($errors, $this->parametersCheck->check(
+		$returnRes = array_merge($errors, $this->parametersCheck->check(
 			ParametersAcceptorSelector::selectFromArgs(
 				$scope,
 				$node->getArgs(),
@@ -73,6 +74,8 @@ final class CallMethodsRule implements Rule
 			'Parameter %s of method ' . $messagesMethodName . ' contains unresolvable type.',
 			'Method ' . $messagesMethodName . ' invoked with %s, but it\'s not allowed because of @no-named-arguments.',
 		));
+
+		return $returnRes;
 	}
 
 }

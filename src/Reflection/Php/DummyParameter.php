@@ -14,6 +14,7 @@ class DummyParameter implements ParameterReflection
 	public function __construct(private string $name, private Type $type, private bool $optional, ?PassedByReference $passedByReference, private bool $variadic, private ?Type $defaultValue)
 	{
 		$this->passedByReference = $passedByReference ?? PassedByReference::createNo();
+
 	}
 
 	public function getName(): string

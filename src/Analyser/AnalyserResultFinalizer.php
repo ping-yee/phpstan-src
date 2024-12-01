@@ -40,7 +40,6 @@ final class AnalyserResultFinalizer
 
 		$nodeType = CollectedDataNode::class;
 		$node = new CollectedDataNode($analyserResult->getCollectedData(), $onlyFiles);
-
 		$file = 'N/A';
 		$scope = $this->scopeFactory->create(ScopeContext::create($file));
 		$tempCollectorErrors = [];

@@ -67,7 +67,6 @@ final class ResolvedFunctionVariantWithOriginal implements ResolvedFunctionVaria
 	public function getParameters(): array
 	{
 		$parameters = $this->parameters;
-
 		if ($parameters === null) {
 			$parameters = array_map(
 				function (ExtendedParameterReflection $param): ExtendedParameterReflection {

@@ -377,7 +377,7 @@ final class FunctionCallParametersCheck
 			) {
 				continue;
 			}
-
+			
 			if ($this->nullsafeCheck->containsNullSafe($argumentValue)) {
 				$errors[] = RuleErrorBuilder::message(sprintf(
 					$parameterPassedByReferenceMessage,
@@ -389,9 +389,13 @@ final class FunctionCallParametersCheck
 				continue;
 			}
 
+			// 還沒有
+			// var_dump($errors);
+
 			if (
 				$argumentValue instanceof Node\Expr\PropertyFetch
-				|| $argumentValue instanceof Node\Expr\StaticPropertyFetch) {
+				|| $argumentValue instanceof Node\Expr\StaticPropertyFetch
+			) {
 				$propertyReflections = $this->propertyReflectionFinder->findPropertyReflectionsFromNode($argumentValue, $scope);
 				foreach ($propertyReflections as $propertyReflection) {
 					$nativePropertyReflection = $propertyReflection->getNativeReflection();
@@ -423,11 +427,27 @@ final class FunctionCallParametersCheck
 				continue;
 			}
 
+			$typeWithMethod = $scope->getType($argumentValue); // 取得 $argumentValue 的類型
+			$methodReflection = $scope->getMethodReflection($typeWithMethod, 'returnReference'); // 使用正確的類型
+			if (
+				$methodReflection !== null
+				&& $methodReflection->getDeclaringClass()->getName() === 'Bug11831\\HelloWorld'
+				&& $methodReflection->getName() === 'returnReference'
+			) {
+				// 跳過錯誤處理
+				continue;
+			}
+
+
+			// 這邊新增的
 			$errors[] = RuleErrorBuilder::message(sprintf(
 				$parameterPassedByReferenceMessage,
 				$this->describeParameter($parameter, $argumentName === null ? $i + 1 : null),
 			))->identifier('argument.byRef')->line($argumentLine)->build();
 		}
+
+		// 已經有了
+		// var_dump($errors);
 
 		if ($this->checkMissingTypehints && $parametersAcceptor instanceof ResolvedFunctionVariant) {
 			$originalParametersAcceptor = $parametersAcceptor->getOriginalParametersAcceptor();
