@@ -110,9 +110,9 @@ final class FileAnalyser
 					foreach ($ruleRegistry->getRules($nodeType) as $rule) {
 						try {
 							$ruleErrors = $rule->processNode($node, $scope);
-							if (count($ruleErrors) > 0) {
-								 var_dump($rule::class, $ruleErrors);
-							}
+							// if (count($ruleErrors) > 0) {
+							// 	 var_dump($rule::class, $ruleErrors);
+							// }
 						} catch (AnalysedCodeException $e) {
 							if (isset($uniquedAnalysedCodeExceptionMessages[$e->getMessage()])) {
 								continue;

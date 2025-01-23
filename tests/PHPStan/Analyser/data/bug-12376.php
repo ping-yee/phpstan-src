@@ -28,27 +28,27 @@ class A extends Base
 class B extends A {}
 class C extends Base {}
 
-$o = new \DateTime();
+// $o = new \DateTime();
+// $r = A::assertInstanceOf($o);
+// \PHPStan\dumpType($o);
+// \PHPStan\dumpType($r);
+
+$o = new A();
 $r = A::assertInstanceOf($o);
 \PHPStan\dumpType($o);
-\PHPStan\dumpType($r);
+// \PHPStan\dumpType($r);
 
-$o = new \A();
-$r = A::assertInstanceOf($o);
-\PHPStan\dumpType($o);
-\PHPStan\dumpType($r);
+// $o = new \B();
+// // $r = A::assertInstanceOf($o);
+// // \PHPStan\dumpType($o);
+// // \PHPStan\dumpType($r);
 
-$o = new \B();
-$r = A::assertInstanceOf($o);
-\PHPStan\dumpType($o);
-\PHPStan\dumpType($r);
+// $o = new \C();
+// $r = A::assertInstanceOf($o);
+// \PHPStan\dumpType($o);
+// \PHPStan\dumpType($r);
 
-$o = new \C();
-$r = A::assertInstanceOf($o);
-\PHPStan\dumpType($o);
-\PHPStan\dumpType($r);
-
-$o = new \A();
-$r = B::assertInstanceOf($o);
-\PHPStan\dumpType($o);
-\PHPStan\dumpType($r);
+// $o = new \A();
+// $r = B::assertInstanceOf($o);
+// \PHPStan\dumpType($o);
+// \PHPStan\dumpType($r);

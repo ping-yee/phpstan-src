@@ -46,6 +46,9 @@ final class DumpTypeRule implements Rule
 			return [];
 		}
 
+		$type = $scope->getType($node->getArgs()[0]->value);
+		var_dump($scope::class);
+
 		return [
 			RuleErrorBuilder::message(
 				sprintf(
